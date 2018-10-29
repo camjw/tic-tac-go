@@ -25,17 +25,20 @@ func (b *Board) PlayMove(index_x int, index_y int, token string) () {
 }
 
 func (b Board) GameOver() (bool, string) {
-   
+  return true, "Hello"
 }
 
 func (b Board) VerticalWin() (bool, string) {
+  return true, "Hello"
 
 }
 
 func (b Board) HorizontalWin() (bool, string) {
+  return true, "Hello"
 
 }
 
 func (b Board) DiagonalWin() (bool, string) {
+  return true, "Hello"
 
 }
