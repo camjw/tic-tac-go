@@ -1,1 +1,81 @@
 package lib
+
+import "testing"
+
+func TestInitialize(t *testing.T) {
+  board := Board{}
+  board.Initialize()
+  got := board.Grid
+  want := [3][3]string{
+    [3]string{"-", "-", "-"},
+    [3]string{"-", "-", "-"},
+    [3]string{"-", "-", "-"},
+  }
+  if got != want {
+    t.Errorf("got %.s want %.s", got, want)
+  }
+}
+
+func TestPlayMove(t *testing.T) {
+  board := Board{}
+  board.Initialize()
+  board.PlayMove(3, "X")
+  got := board.Grid
+  want := [3][3]string{
+    [3]string{"-", "-", "-"},
+    [3]string{"X", "-", "-"},
+    [3]string{"-", "-", "-"},
+  }
+  if got != want {
+    t.Errorf("got %.s want %.s", got, want)
+  }
+}
+
+func TestHorizontalWinTrue(t *testing.T) {
+  board := Board{}
+  board.Initialize()
+  for i := 0; i < 3; i++ {
+    board.PlayMove(i, "X")
+  }
+  got := board.HorizontalWin("X")
+  want := true
+  if got != want {
+    t.Errorf("got %t want %t", got, want)
+  }
+}
+
+func TestVerticalWinTrue(t *testing.T) {
+  board := Board{}
+  board.Initialize()
+  for i := 0; i < 3; i++ {
+    board.PlayMove(3 * i, "X")
+  }
+  got := board.VerticalWin("X")
+  want := true
+  if got != want {
+    t.Errorf("got %t want %t", got, want)
+  }
+}
+
+func TestDiagonalWinTrue(t *testing.T) {
+  board := Board{}
+  board.Initialize()
+  for i := 0; i < 3; i++ {
+    board.PlayMove(4 * i, "X")
+  }
+  got := board.DiagonalWin("X")
+  want := true
+  if got != want {
+    t.Errorf("got %t want %t", got, want)
+  }
+}
+
+func TestNoWin(t *testing.T) {
+  board := Board{}
+  board.Initialize()
+  got := [3]bool{board.HorizontalWin("X"), board.VerticalWin("X"), board.DiagonalWin("X")}
+  want := [3]bool{false, false, false}
+  if got != want {
+    t.Errorf("got %t want %t", got, want)
+  }
+}
