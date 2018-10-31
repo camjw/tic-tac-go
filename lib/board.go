@@ -28,7 +28,7 @@ func (b *Board) PlayMove(index int, token string) () {
   b.TotalMoves++
 }
 
-func (b Board) GameOver(symbol string) (bool) {
+func (b Board) Winner(symbol string) (bool) {
   if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) {
     return true
   }

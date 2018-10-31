@@ -92,13 +92,13 @@ func TestDiagonalWinTrue(t *testing.T) {
   }
 }
 
-func TestGameOver(t *testing.T) {
+func TestWinner(t *testing.T) {
   board := Board{}
   board.Initialize()
   for i := 0; i < 3; i++ {
     board.PlayMove(4 * i, "X")
   }
-  got := board.GameOver("X")
+  got := board.Winner("X")
   want := true
   if got != want {
     t.Errorf("got %t want %t", got, want)
@@ -108,7 +108,7 @@ func TestGameOver(t *testing.T) {
 func TestNoWin(t *testing.T) {
   board := Board{}
   board.Initialize()
-  got := board.GameOver("X")
+  got := board.Winner("X")
   want := false
   if got != want {
     t.Errorf("got %t want %t", got, want)
