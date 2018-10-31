@@ -4,6 +4,7 @@ import "fmt"
 
 type Board struct {
   Grid [3][3]string
+  TotalMoves int
 }
 
 func (b *Board) Initialize() () {
@@ -12,6 +13,7 @@ func (b *Board) Initialize() () {
     [3]string{"-", "-", "-"},
     [3]string{"-", "-", "-"},
   }
+  b.TotalMoves = 0
 }
 
 func (b Board) Print() () {
@@ -23,10 +25,14 @@ func (b Board) Print() () {
 func (b *Board) PlayMove(index int, token string) () {
   row, column := index / 3, index % 3
   b.Grid[row][column] = token
+  b.TotalMoves++
 }
 
-func (b Board) GameOver() (bool, string) {
-  return true, "Hello"
+func (b Board) GameOver(symbol string) (bool) {
+  if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) {
+    return true
+  }
+  return false
 }
 
 func (b Board) VerticalWin(symbol string) (bool) {

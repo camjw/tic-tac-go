@@ -54,7 +54,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/camjw/tic-tac-go/lib/board.go (86.4%)</option>
+				<option value="file0">github.com/camjw/tic-tac-go/lib/board.go (96.2%)</option>
 				
 				</select>
 			</div>
@@ -74,6 +74,7 @@ import "fmt"
 
 type Board struct {
   Grid [3][3]string
+  TotalMoves int
 }
 
 func (b *Board) Initialize() () <span class="cov8" title="1">{
@@ -82,10 +83,11 @@ func (b *Board) Initialize() () <span class="cov8" title="1">{
     [3]string{"-", "-", "-"},
     [3]string{"-", "-", "-"},
   }
+  b.TotalMoves = 0
 }</span>
 
-func (b Board) Print() () <span class="cov0" title="0">{
-  for i, _ := range b.Grid </span><span class="cov0" title="0">{
+func (b Board) Print() () <span class="cov8" title="1">{
+  for i, _ := range b.Grid </span><span class="cov8" title="1">{
     fmt.Println(b.Grid[i])
   }</span>
 }
@@ -93,11 +95,15 @@ func (b Board) Print() () <span class="cov0" title="0">{
 func (b *Board) PlayMove(index int, token string) () <span class="cov8" title="1">{
   row, column := index / 3, index % 3
   b.Grid[row][column] = token
+  b.TotalMoves++
 }</span>
 
-func (b Board) GameOver() (bool, string) <span class="cov0" title="0">{
-  return true, "Hello"
-}</span>
+func (b Board) GameOver(symbol string) (bool) <span class="cov8" title="1">{
+  if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) </span><span class="cov0" title="0">{
+    return true
+  }</span>
+  <span class="cov8" title="1">return false</span>
+}
 
 func (b Board) VerticalWin(symbol string) (bool) <span class="cov8" title="1">{
   for i := 0; i &lt; 3; i++ </span><span class="cov8" title="1">{
