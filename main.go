@@ -1,14 +1,15 @@
 package main
 
-import board "github.com/camjw/tic-tac-go/lib"
+import lib "github.com/camjw/tic-tac-go/lib"
 import "fmt"
 
 func main() {
-  var board = board.Board{}
-  board.Initialize()
-  board.PlayMove(0,"X")
-  board.PlayMove(3,"X")
-  board.PlayMove(6,"X")
+  var board = lib.NewBoard()
+  var player = lib.NewPlayer("X", board)
+  player.PlayMove(0)
+  player.PlayMove(3)
+  player.PlayMove(6)
   board.Print()
   fmt.Println(board.VerticalWin("X"))
+  fmt.Println(board.TotalMoves)
 }

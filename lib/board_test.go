@@ -3,8 +3,7 @@ package lib
 import "testing"
 
 func TestInitialize(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   got := board.Grid
   want := [3][3]string{
     [3]string{"-", "-", "-"},
@@ -17,8 +16,7 @@ func TestInitialize(t *testing.T) {
 }
 
 func TestPlayMove(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   board.PlayMove(3, "X")
   got := board.Grid
   want := [3][3]string{
@@ -32,8 +30,7 @@ func TestPlayMove(t *testing.T) {
 }
 
 func TestPlayMoveIncreaseTotalMoves(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   board.PlayMove(3, "X")
   got := board.TotalMoves
   want := 1
@@ -43,8 +40,7 @@ func TestPlayMoveIncreaseTotalMoves(t *testing.T) {
 }
 
 func ExampleBoard_Print() {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   board.Print()
   // Output:
   // [- - -]
@@ -54,8 +50,7 @@ func ExampleBoard_Print() {
 
 
 func TestHorizontalWinTrue(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   for i := 0; i < 3; i++ {
     board.PlayMove(i, "X")
   }
@@ -67,8 +62,7 @@ func TestHorizontalWinTrue(t *testing.T) {
 }
 
 func TestVerticalWinTrue(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   for i := 0; i < 3; i++ {
     board.PlayMove(3 * i, "X")
   }
@@ -80,8 +74,7 @@ func TestVerticalWinTrue(t *testing.T) {
 }
 
 func TestDiagonalWinTrue(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   for i := 0; i < 3; i++ {
     board.PlayMove(4 * i, "X")
   }
@@ -93,8 +86,7 @@ func TestDiagonalWinTrue(t *testing.T) {
 }
 
 func TestWinner(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   for i := 0; i < 3; i++ {
     board.PlayMove(4 * i, "X")
   }
@@ -106,8 +98,7 @@ func TestWinner(t *testing.T) {
 }
 
 func TestNoWin(t *testing.T) {
-  board := Board{}
-  board.Initialize()
+  board := NewBoard()
   got := board.Winner("X")
   want := false
   if got != want {

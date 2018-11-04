@@ -7,13 +7,13 @@ type Board struct {
   TotalMoves int
 }
 
-func (b *Board) Initialize() () {
-  b.Grid = [3][3]string{
+func NewBoard() (*Board) {
+  EmptyGrid := [3][3]string{
     [3]string{"-", "-", "-"},
     [3]string{"-", "-", "-"},
     [3]string{"-", "-", "-"},
   }
-  b.TotalMoves = 0
+  return &Board{EmptyGrid, 0}
 }
 
 func (b Board) Print() () {
