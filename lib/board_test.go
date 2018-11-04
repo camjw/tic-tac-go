@@ -2,7 +2,7 @@ package lib
 
 import "testing"
 
-func TestInitialize(t *testing.T) {
+func TestNewBoard(t *testing.T) {
   board := NewBoard()
   got := board.Grid
   want := [3][3]string{

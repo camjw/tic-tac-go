@@ -2,25 +2,24 @@ package lib
 
 import "testing"
 
-type MockBoard struct {
-  Index int
-  Symbol string
-}
-
-func (m *MockBoard) PlayMove(index int, symbol string) () {
-  m.Index = index
-  m.Symbol = symbol
-}
-
-func TestPlayerMove(t *testing.T) {
+func TestPlayerMoveIndex(t *testing.T) {
   mockboard := MockBoard{}
   player := NewPlayer("X", &mockboard)
   player.PlayerMove(1)
-  got_index := mockboard.Index
-  got_symbol := mockboard.Symbol
-  want_index := 1
-  want_symbol := "X"
-  if (got_index != want_index) || (got_symbol != want_symbol) {
-    t.Errorf("Either index or symbol is wrong")
+  got := mockboard.Index
+  want := 1
+  if got != want {
+    t.Errorf("got %v want %v", got, want)
+  }
+}
+
+func TestPlayerMoveSymbol(t *testing.T) {
+  mockboard := MockBoard{}
+  player := NewPlayer("X", &mockboard)
+  player.PlayerMove(1)
+  got := mockboard.Symbol
+  want := "X"
+  if got != want {
+    t.Errorf("got %.s want %.s", got, want)
   }
 }
