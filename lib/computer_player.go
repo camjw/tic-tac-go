@@ -5,8 +5,8 @@ type ComputerPlayer struct {
   Board BoardToPlay
 }
 
-func NewComputer(symbol string, board BoardToPlay) (*ComputerPlayer) {
-  return &ComputerPlayer{symbol, board}
+func NewComputer(board BoardToPlay) (*ComputerPlayer) {
+  return &ComputerPlayer{"O", board}
 }
 
 func (c *ComputerPlayer) ComputerMove() () {
@@ -14,21 +14,15 @@ func (c *ComputerPlayer) ComputerMove() () {
   c.Board.PlayMove(index, c.Symbol)
 }
 
-func (c ComputerPlayer) GetOtherSymbol() (string) {
-  if (c.Symbol == "X") {
-    return "O"
-  }
-  return "X"
-}
 
 func (c ComputerPlayer) GetValidBoardMoves() ([]int) {
   return c.Board.GetValidMoves()
 }
 
 func (c ComputerPlayer) Score(game BoardToPlay) (float64) {
-  if (game.Winner(c.Symbol)) {
+  if (game.Winner("O")) {
     return 1.0
-  } else if (game.Winner(c.GetOtherSymbol())) {
+  } else if (game.Winner("X")) {
     return -1.0
   } else {
     return 0.0

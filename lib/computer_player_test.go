@@ -5,7 +5,7 @@ import "reflect"
 
 func TestComputerMoveIndex(t *testing.T) {
   mockboard := MockBoard{}
-  computer := NewComputer("O", &mockboard)
+  computer := NewComputer(&mockboard)
   computer.ComputerMove()
   got := mockboard.Index
   want := 1
@@ -16,7 +16,7 @@ func TestComputerMoveIndex(t *testing.T) {
 
 func TestComputerMoveSymbol(t *testing.T) {
   mockboard := MockBoard{}
-  computer := NewComputer("O", &mockboard)
+  computer := NewComputer(&mockboard)
   computer.ComputerMove()
   got := mockboard.Symbol
   want := "O"
@@ -27,7 +27,7 @@ func TestComputerMoveSymbol(t *testing.T) {
 
 func TestComputerGetValidMoves(t *testing.T) {
   mockboard := MockBoard{}
-  computer := NewComputer("O", &mockboard)
+  computer := NewComputer(&mockboard)
   got := computer.GetValidBoardMoves()
   want := []int{0}
   if !reflect.DeepEqual(got, want) {
@@ -35,29 +35,9 @@ func TestComputerGetValidMoves(t *testing.T) {
   }
 }
 
-func TestGetOtherSymbolO( t *testing.T) {
-  mockboard := MockBoard{}
-  computer := NewComputer("O", &mockboard)
-  got := computer.GetOtherSymbol()
-  want:= "X"
-  if got != want {
-   t.Errorf("got %.s want %.s", got, want)
-  }
-}
-
-func TestGetOtherSymbolX( t *testing.T) {
-  mockboard := MockBoard{}
-  computer := NewComputer("X", &mockboard)
-  got := computer.GetOtherSymbol()
-  want:= "O"
-  if got != want {
-   t.Errorf("got %.s want %.s", got, want)
-  }
-}
-
 func TestScoreNotEnded( t *testing.T) {
   mockboard := MockBoard{}
-  computer := NewComputer("O", &mockboard)
+  computer := NewComputer(&mockboard)
   got := computer.Score(&mockboard)
   want:= 0.0
   if got != want {

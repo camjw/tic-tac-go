@@ -5,8 +5,8 @@ type Player struct {
   Board BoardToPlay
 }
 
-func NewPlayer(symbol string, board BoardToPlay) (*Player) {
-  return &Player{symbol, board}
+func NewPlayer(board BoardToPlay) (*Player) {
+  return &Player{"X", board}
 }
 
 func (p *Player) PlayerMove(index int) () {

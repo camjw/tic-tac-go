@@ -4,7 +4,7 @@ import "testing"
 
 func TestPlayerMoveIndex(t *testing.T) {
   mockboard := MockBoard{}
-  player := NewPlayer("X", &mockboard)
+  player := NewPlayer(&mockboard)
   player.PlayerMove(1)
   got := mockboard.Index
   want := 1
@@ -15,9 +15,9 @@ func TestPlayerMoveIndex(t *testing.T) {
 
 func TestPlayerMoveSymbol(t *testing.T) {
   mockboard := MockBoard{}
-  player := NewPlayer("X", &mockboard)
+  player := NewPlayer(&mockboard)
   player.PlayerMove(1)
-  got := mockboard.Symbol
+  got := player.Symbol
   want := "X"
   if got != want {
     t.Errorf("got %.s want %.s", got, want)
