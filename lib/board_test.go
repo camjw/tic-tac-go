@@ -1,6 +1,7 @@
 package lib
 
 import "testing"
+import "reflect"
 
 func TestNewBoard(t *testing.T) {
   board := NewBoard()
@@ -38,6 +39,16 @@ func TestPlayMoveIncreaseTotalMoves(t *testing.T) {
     t.Errorf("got %v want %v", got, want)
   }
 }
+
+func TestGetValidMoves(t *testing.T) {
+  board := NewBoard()
+  got := board.GetValidMoves()
+  want := []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
+  if !reflect.DeepEqual(got, want) {
+    t.Errorf("got %v want %v", got, want)
+  }
+}
+
 
 func ExampleBoard_Print() {
   board := NewBoard()

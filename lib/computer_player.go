@@ -17,3 +17,7 @@ func (c *ComputerPlayer) ComputerMove() () {
 func (c ComputerPlayer) DecideMove() (int) {
   return 1
 }
+
+func (c ComputerPlayer) GetValidMoves() ([]int) {
+  return c.Board.GetValidMoves()
+}

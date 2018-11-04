@@ -28,6 +28,18 @@ func (b *Board) PlayMove(index int, token string) () {
   b.TotalMoves++
 }
 
+func (b *Board) GetValidMoves() ([]int) {
+  output := []int{}
+  for i, _ := range b.Grid {
+    for j, _ := range b.Grid[i] {
+      if b.Grid[i][j] == "-" {
+        output = append(output, 3 * i + j)
+      }
+    }
+  }
+  return output
+}
+
 func (b Board) Winner(symbol string) (bool) {
   if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) {
     return true
