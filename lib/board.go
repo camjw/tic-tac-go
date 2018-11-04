@@ -17,7 +17,7 @@ func NewBoard() (*Board) {
 }
 
 func (b Board) Print() () {
-  for i, _ := range b.Grid {
+  for i := range b.Grid {
     fmt.Println(b.Grid[i])
   }
 }
@@ -30,8 +30,8 @@ func (b *Board) PlayMove(index int, token string) () {
 
 func (b *Board) GetValidMoves() ([]int) {
   output := []int{}
-  for i, _ := range b.Grid {
-    for j, _ := range b.Grid[i] {
+  for i := range b.Grid {
+    for j := range b.Grid[i] {
       if b.Grid[i][j] == "-" {
         output = append(output, 3 * i + j)
       }
@@ -42,6 +42,13 @@ func (b *Board) GetValidMoves() ([]int) {
 
 func (b Board) Winner(symbol string) (bool) {
   if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) {
+    return true
+  }
+  return false
+}
+
+func (b Board) GameOver() (bool) {
+  if (b.Winner("X") || b.Winner("O")) {
     return true
   }
   return false

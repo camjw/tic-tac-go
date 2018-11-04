@@ -116,3 +116,24 @@ func TestNoWin(t *testing.T) {
     t.Errorf("got %t want %t", got, want)
   }
 }
+
+func TestGameOverTrue(t *testing.T) {
+  board := NewBoard()
+  for i := 0; i < 3; i++ {
+    board.PlayMove(4 * i, "X")
+  }
+  got := board.GameOver()
+  want := true
+  if got != want {
+    t.Errorf("got %t want %t", got, want)
+  }
+}
+
+func TestGameOverFalse(t *testing.T) {
+  board := NewBoard()
+  got := board.GameOver()
+  want := false
+  if got != want {
+    t.Errorf("got %t want %t", got, want)
+  }
+}

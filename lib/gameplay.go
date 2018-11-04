@@ -4,4 +4,5 @@ type BoardToPlay interface {
   PlayMove(int, string)
   GetValidMoves() []int
   Winner(string) bool
+  GameOver() bool
 }
