@@ -1,4 +1,4 @@
-package lib
+package players
 
 import "testing"
 import "reflect"

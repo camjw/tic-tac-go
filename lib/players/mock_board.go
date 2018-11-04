@@ -1,4 +1,4 @@
-package lib
+package players
 
 type MockBoard struct {
   Index int
@@ -10,10 +10,14 @@ func (m *MockBoard) PlayMove(index int, symbol string) () {
   m.Symbol = symbol
 }
 
-func (m *MockBoard) GetValidMoves() ([]int) {
+func (m MockBoard) GetValidMoves() ([]int) {
   return []int{0}
 }
 
-func (m *MockBoard) Winner(symbol string) (bool) {
+func (m MockBoard) Winner(symbol string) (bool) {
+  return false
+}
+
+func (m MockBoard) GameOver() (bool) {
   return false
 }

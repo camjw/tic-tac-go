@@ -1,4 +1,4 @@
-package lib
+package players
 
 type BoardToPlay interface {
   PlayMove(int, string)

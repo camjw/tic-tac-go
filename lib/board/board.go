@@ -1,19 +1,20 @@
-package lib
+package board
 
 import "fmt"
 
 type Board struct {
   Grid [3][3]string
   TotalMoves int
+  WhoseTurn string
 }
 
-func NewBoard() (*Board) {
+func New(symbol string) (*Board) {
   EmptyGrid := [3][3]string{
     [3]string{"-", "-", "-"},
     [3]string{"-", "-", "-"},
     [3]string{"-", "-", "-"},
   }
-  return &Board{EmptyGrid, 0}
+  return &Board{EmptyGrid, 0, symbol}
 }
 
 func (b Board) Print() () {
@@ -22,10 +23,19 @@ func (b Board) Print() () {
   }
 }
 
+func (b *Board) SwitchPlayer() () {
+  if (b.WhoseTurn == "X") {
+    b.WhoseTurn = "O"
+  } else {
+    b.WhoseTurn = "X"
+  }
+}
+
 func (b *Board) PlayMove(index int, token string) () {
   row, column := index / 3, index % 3
   b.Grid[row][column] = token
   b.TotalMoves++
+  b.SwitchPlayer()
 }
 
 func (b *Board) GetValidMoves() ([]int) {
