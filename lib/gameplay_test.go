@@ -13,3 +13,7 @@ func (m *MockBoard) PlayMove(index int, symbol string) () {
 func (m *MockBoard) GetValidMoves() ([]int) {
   return []int{0}
 }
+
+func (m *MockBoard) Winner(symbol string) (bool) {
+  return false
+}

@@ -1,6 +1,7 @@
 package lib
 
 import "testing"
+import "reflect"
 
 func TestComputerMoveIndex(t *testing.T) {
   mockboard := MockBoard{}
@@ -21,5 +22,35 @@ func TestComputerMoveSymbol(t *testing.T) {
   want := "O"
   if got != want {
     t.Errorf("got %.s want %.s", got, want)
+  }
+}
+
+func TestComputerGetValidMoves(t *testing.T) {
+  mockboard := MockBoard{}
+  computer := NewComputer("O", &mockboard)
+  got := computer.GetValidBoardMoves()
+  want := []int{0}
+  if !reflect.DeepEqual(got, want) {
+    t.Errorf("got %v want %v", got, want)
+  }
+}
+
+func TestGetOtherSymbol( t *testing.T) {
+  mockboard := MockBoard{}
+  computer := NewComputer("O", &mockboard)
+  got := computer.GetOtherSymbol()
+  want:= "X"
+  if got != want {
+   t.Errorf("got %.s want %.s", got, want)
+  }
+}
+
+func TestScore( t *testing.T) {
+  mockboard := MockBoard{}
+  computer := NewComputer("O", &mockboard)
+  got := computer.Score(&mockboard)
+  want:= 0.0
+  if got != want {
+   t.Errorf("got %f want %f", got, want)
   }
 }
