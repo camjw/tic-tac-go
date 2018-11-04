@@ -1,5 +1,8 @@
 package players
 
+import "sort"
+import "fmt"
+
 type ComputerPlayer struct {
   Symbol string
   Board BoardToPlay
@@ -11,12 +14,12 @@ func NewComputer(board BoardToPlay) (*ComputerPlayer) {
 }
 
 func (c *ComputerPlayer) ComputerMove() () {
-  // index := c.MiniMax(c.Board)
-  c.Board.PlayMove(1, c.Symbol)
+  c.MiniMax(c.Board)
+  c.Board.PlayMove(c.NextMove, c.Symbol)
 }
 
 
-func (c ComputerPlayer) GetValidBoardMoves() ([]int) {
+func (c ComputerPlayer) GetValidMoves() ([]int) {
   return c.Board.GetValidMoves()
 }
 
@@ -31,44 +34,53 @@ func (c ComputerPlayer) Score(game BoardToPlay) (float64) {
 }
 
 func (c *ComputerPlayer) MiniMax(board BoardToPlay) (float64) {
-  if c.Board.GameOver() {
-    return c.Score(c.Board)
+  if board.GameOver() {
+    fmt.Println("GAME VER")
+    board.Print()
+    return c.Score(board)
   }
 
   scores := []float64{}
   moves := []int{}
 
-  for _, move := range c.GetValidBoardMoves() {
-    PossibleBoard := c.Board
-    PossibleBoard.PlayMove(move, "X")
-    scores = append(scores, c.MiniMax(PossibleBoard))
+  fmt.Println(board.GetValidMoves())
+  for index, move := range board.GetValidMoves() {
+    PossibleBoard := board
+    PossibleBoard.PlayMove(move, board.WhoseTurn())
+    scores = append(scores, 0.9 * c.MiniMax(PossibleBoard))
+    fmt.Println(index, move)
+    PossibleBoard.Print()
     moves = append(moves, move)
   }
 
-  if (c.Board.WhoseTurn == "O") {
-    max_score_
+  if (c.Board.WhoseTurn() == "O") {
+    max_score := maxFloat64Slice(scores)
+    max_score_index := indexInSlice(scores, max_score)
+    c.NextMove = moves[max_score_index]
+    return scores[max_score_index]
+  } else {
+    min_score := minFloat64Slice(scores)
+    min_score_index := indexInSlice(scores, min_score)
+    c.NextMove = moves[min_score_index]
+    return scores[min_score_index]
   }
-  // if game.active_turn == @player
-  //       # This is the max calculation
-  //       max_score_index = scores.each_with_index.max[1]
-  //       @choice = moves[max_score_index]
-  //       return scores[max_score_index]
-  //   else
-  //       # This is the min calculation
-  //       min_score_index = scores.each_with_index.min[1]
-  //       @choice = moves[min_score_index]
-  //       return scores[min_score_index]
-  //   end
-
-  return 1.5
 }
 
-func minFloat64Slice(s []float64) int {
-  sort.Float64s(s)
-  return s[0]
+func minFloat64Slice(slice []float64) (float64) {
+  sort.Float64s(slice)
+  return slice[0]
 }
 
-func maxFloat64Slice(s []float64) int {
-  sort.Float64s(s)
-  return s[len(s) - 1]
+func maxFloat64Slice(slice []float64) (float64) {
+  sort.Float64s(slice)
+  return slice[len(slice) - 1]
+}
+
+func indexInSlice(slice []float64, value float64) (int) {
+  for i, v := range slice {
+      if (v == value) {
+          return i
+      }
+  }
+  return -1
 }

@@ -5,7 +5,7 @@ import "fmt"
 type Board struct {
   Grid [3][3]string
   TotalMoves int
-  WhoseTurn string
+  NextTurn string
 }
 
 func New(symbol string) (*Board) {
@@ -17,6 +17,10 @@ func New(symbol string) (*Board) {
   return &Board{EmptyGrid, 0, symbol}
 }
 
+func (b Board) WhoseTurn() (string) {
+  return b.NextTurn
+}
+
 func (b Board) Print() () {
   for i := range b.Grid {
     fmt.Println(b.Grid[i])
@@ -24,10 +28,10 @@ func (b Board) Print() () {
 }
 
 func (b *Board) SwitchPlayer() () {
-  if (b.WhoseTurn == "X") {
-    b.WhoseTurn = "O"
+  if (b.WhoseTurn() == "X") {
+    b.NextTurn = "O"
   } else {
-    b.WhoseTurn = "X"
+    b.NextTurn = "X"
   }
 }
 

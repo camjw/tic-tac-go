@@ -5,4 +5,6 @@ type BoardToPlay interface {
   GetValidMoves() []int
   Winner(string) bool
   GameOver() bool
+  WhoseTurn() string
+  Print()
 }

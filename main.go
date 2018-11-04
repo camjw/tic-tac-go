@@ -6,7 +6,7 @@ import players "github.com/camjw/tic-tac-go/lib/players"
 import "fmt"
 
 func main() {
-  board := board.New("O")
+  board := board.New("X")
   player := players.NewPlayer(board)
   computer := players.NewComputer(board)
   player.PlayerMove(0)
@@ -15,4 +15,5 @@ func main() {
   fmt.Println(board.TotalMoves)
   fmt.Println(board.GetValidMoves())
   fmt.Println(computer.MiniMax(board))
+  fmt.Println(computer.NextMove)
 }
