@@ -35,7 +35,7 @@ func TestComputerGetValidMoves(t *testing.T) {
   }
 }
 
-func TestGetOtherSymbol( t *testing.T) {
+func TestGetOtherSymbolO( t *testing.T) {
   mockboard := MockBoard{}
   computer := NewComputer("O", &mockboard)
   got := computer.GetOtherSymbol()
@@ -45,7 +45,17 @@ func TestGetOtherSymbol( t *testing.T) {
   }
 }
 
-func TestScore( t *testing.T) {
+func TestGetOtherSymbolX( t *testing.T) {
+  mockboard := MockBoard{}
+  computer := NewComputer("X", &mockboard)
+  got := computer.GetOtherSymbol()
+  want:= "O"
+  if got != want {
+   t.Errorf("got %.s want %.s", got, want)
+  }
+}
+
+func TestScoreNotEnded( t *testing.T) {
   mockboard := MockBoard{}
   computer := NewComputer("O", &mockboard)
   got := computer.Score(&mockboard)
