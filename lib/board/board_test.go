@@ -33,7 +33,7 @@ func TestPlayMove(t *testing.T) {
 func TestSwitchMoveX(t *testing.T) {
   board := New("X")
   board.SwitchPlayer()
-  got := board.WhoseTurn
+  got := board.WhoseTurn()
   want := "O"
   if got != want {
     t.Errorf("got %.s want %.s", got, want)
@@ -43,7 +43,7 @@ func TestSwitchMoveX(t *testing.T) {
 func TestSwitchMoveO(t *testing.T) {
   board := New("O")
   board.SwitchPlayer()
-  got := board.WhoseTurn
+  got := board.WhoseTurn()
   want := "X"
   if got != want {
     t.Errorf("got %.s want %.s", got, want)

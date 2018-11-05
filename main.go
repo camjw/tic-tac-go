@@ -13,7 +13,13 @@ func main() {
   board.Print()
   fmt.Println(board.VerticalWin("X"))
   fmt.Println(board.TotalMoves)
-  fmt.Println(board.GetValidMoves())
-  fmt.Println(computer.MiniMax(board))
+  var possible_board struct
+  for _, move := range board.GetValidMoves() {
+    possible_board = board
+    possible_board.PlayMove(move, "O")
+    possible_board.Print()
+  }
+  // fmt.Println(computer.MiniMax(board))
+
   fmt.Println(computer.NextMove)
 }

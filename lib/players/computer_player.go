@@ -35,7 +35,7 @@ func (c ComputerPlayer) Score(game BoardToPlay) (float64) {
 
 func (c *ComputerPlayer) MiniMax(board BoardToPlay) (float64) {
   if board.GameOver() {
-    fmt.Println("GAME VER")
+    fmt.Println("GAME OVER")
     board.Print()
     return c.Score(board)
   }
@@ -43,14 +43,15 @@ func (c *ComputerPlayer) MiniMax(board BoardToPlay) (float64) {
   scores := []float64{}
   moves := []int{}
 
+  fmt.Println("GET VALID MOVES")
   fmt.Println(board.GetValidMoves())
   for index, move := range board.GetValidMoves() {
     PossibleBoard := board
     PossibleBoard.PlayMove(move, board.WhoseTurn())
-    scores = append(scores, 0.9 * c.MiniMax(PossibleBoard))
-    fmt.Println(index, move)
-    PossibleBoard.Print()
+    scores = append(scores, c.MiniMax(PossibleBoard))
     moves = append(moves, move)
+    fmt.Println(index, move)
+    fmt.Println(moves)
   }
 
   if (c.Board.WhoseTurn() == "O") {

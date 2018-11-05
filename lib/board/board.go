@@ -35,9 +35,9 @@ func (b *Board) SwitchPlayer() () {
   }
 }
 
-func (b *Board) PlayMove(index int, token string) () {
+func (b *Board) PlayMove(index int, symbol string) () {
   row, column := index / 3, index % 3
-  b.Grid[row][column] = token
+  b.Grid[row][column] = symbol
   b.TotalMoves++
   b.SwitchPlayer()
 }
@@ -50,6 +50,9 @@ func (b *Board) GetValidMoves() ([]int) {
         output = append(output, 3 * i + j)
       }
     }
+  }
+  if (b.GameOver()) {
+    return []int{}
   }
   return output
 }
@@ -90,7 +93,7 @@ func (b Board) HorizontalWin(symbol string) (bool) {
 
 func (b Board) DiagonalWin(symbol string) (bool) {
   ddiag := [3]string{b.Grid[0][0], b.Grid[1][1], b.Grid[2][2]}
-  udiag := [3]string{b.Grid[0][2], b.Grid[1][1], b.Grid[0][2]}
+  udiag := [3]string{b.Grid[0][2], b.Grid[1][1], b.Grid[2][0]}
   winner := [3]string{symbol, symbol, symbol}
   if udiag == winner || ddiag == winner {
     return true
