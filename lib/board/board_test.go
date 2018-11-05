@@ -157,3 +157,18 @@ func TestGameOverFalse(t *testing.T) {
     t.Errorf("got %t want %t", got, want)
   }
 }
+
+func TestGameOverTooManyMoves(t *testing.T) {
+  board := New("X")
+  for _, i := range [5]int{0,1,5,6,7} {
+    board.PlayMove(i, "X")
+  }
+  for _, i := range [4]int{2,3,4,8} {
+    board.PlayMove(i, "O")
+  }
+  got := board.GameOver()
+  want := true
+  if got != want {
+    t.Errorf("got %t want %t", got, want)
+  }
+}

@@ -38,7 +38,7 @@ func (b *Board) SwitchPlayer() () {
 func (b *Board) PlayMove(index int, symbol string) () {
   row, column := index / 3, index % 3
   b.Grid[row][column] = symbol
-  b.TotalMoves++
+  b.TotalMoves += 1
   b.SwitchPlayer()
 }
 
@@ -65,7 +65,7 @@ func (b Board) Winner(symbol string) (bool) {
 }
 
 func (b Board) GameOver() (bool) {
-  if (b.Winner("X") || b.Winner("O")) {
+  if (b.Winner("X") || b.Winner("O") || b.TotalMoves == 9) {
     return true
   }
   return false

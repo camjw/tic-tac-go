@@ -33,39 +33,9 @@ func (c ComputerPlayer) Score(game BoardToPlay) (float64) {
   }
 }
 
-// func (c ComputerPlayer) MiniMax(board BoardToPlay) (float64) {
-//   if board.GameOver() {
-//     fmt.Println("GAME OVER")
-//     board.Print()
-//     return c.Score(board)
-//   }
-//
-//   scores := []float64{}
-//   moves := []int{}
-//
-//   fmt.Println("GET VALID MOVES")
-//   fmt.Println(board.GetValidMoves())
-//   for index, move := range board.GetValidMoves() {
-//     PossibleBoard := board
-//     PossibleBoard.PlayMove(move, board.WhoseTurn())
-//     scores = append(scores, c.MiniMax(PossibleBoard))
-//     moves = append(moves, move)
-//     fmt.Println(index, move)
-//     fmt.Println(moves)
-//   }
-//
-//   if (c.Board.WhoseTurn() == "O") {
-//     max_score := maxFloat64Slice(scores)
-//     max_score_index := indexInSlice(scores, max_score)
-//     c.NextMove = moves[max_score_index]
-//     return scores[max_score_index]
-//   } else {
-//     min_score := minFloat64Slice(scores)
-//     min_score_index := indexInSlice(scores, min_score)
-//     c.NextMove = moves[min_score_index]
-//     return scores[min_score_index]
-//   }
-// }
+func (c ComputerPlayer) MiniMax(board BoardToPlay) (float64) {
+
+}
 
 func minFloat64Slice(slice []float64) (float64) {
   sort.Float64s(slice)

@@ -10,15 +10,12 @@ func main() {
   player := players.NewPlayer(board)
   computer := players.NewComputer(board)
   player.PlayerMove(0)
-  board.Print()
-  fmt.Println(board.VerticalWin("X"))
-  fmt.Println(board.TotalMoves)
-  for _, move := range board.GetValidMoves() {
-    possible_board := *board
-    possible_board.PlayMove(move, "O")
-    possible_board.Print()
-  }
-  // fmt.Println(computer.MiniMax(board))
+  // for _, move := range board.GetValidMoves() {
+  //   possible_board := *board
+  //   possible_board.PlayMove(move, "O")
+  //   possible_board.Print()
+  // }
+  fmt.Println(computer.MiniMax(board))
 
   fmt.Println(computer.NextMove)
 }
