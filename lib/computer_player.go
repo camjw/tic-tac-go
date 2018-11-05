@@ -1,7 +1,7 @@
-package players
+package lib
 
 import "sort"
-import "fmt"
+// import "fmt"
 
 type ComputerPlayer struct {
   Symbol string
@@ -18,11 +18,6 @@ func (c *ComputerPlayer) ComputerMove() () {
   c.Board.PlayMove(c.NextMove, c.Symbol)
 }
 
-
-func (c ComputerPlayer) GetValidMoves() ([]int) {
-  return c.Board.GetValidMoves()
-}
-
 func (c ComputerPlayer) Score(game BoardToPlay) (float64) {
   if (game.Winner("O")) {
     return 1.0
@@ -34,7 +29,16 @@ func (c ComputerPlayer) Score(game BoardToPlay) (float64) {
 }
 
 func (c ComputerPlayer) MiniMax(board BoardToPlay) (float64) {
+  if board.GameOver() {
+    return c.Score(board)
+  }
 
+  for _, move := range board.GetValidMoves() {
+    possible_board := board.Clone()
+    possible_board.PlayMove(move, "O")
+    possible_board.Print()
+  }
+  return -1
 }
 
 func minFloat64Slice(slice []float64) (float64) {

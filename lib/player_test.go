@@ -1,4 +1,4 @@
-package players
+package lib
 
 import "testing"
 

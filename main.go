@@ -1,14 +1,13 @@
 package main
 
-import board "github.com/camjw/tic-tac-go/lib/board"
-import players "github.com/camjw/tic-tac-go/lib/players"
+import lib "github.com/camjw/tic-tac-go/lib"
 
 import "fmt"
 
 func main() {
-  board := board.New("X")
-  player := players.NewPlayer(board)
-  computer := players.NewComputer(board)
+  board := lib.NewBoard("X")
+  player := lib.NewPlayer(board)
+  computer := lib.NewComputer(board)
   player.PlayerMove(0)
   // for _, move := range board.GetValidMoves() {
   //   possible_board := *board

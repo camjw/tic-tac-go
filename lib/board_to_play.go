@@ -1,4 +1,4 @@
-package players
+package lib
 
 type BoardToPlay interface {
   PlayMove(int, string)
@@ -7,4 +7,5 @@ type BoardToPlay interface {
   GameOver() bool
   WhoseTurn() string
   Print()
+  Clone() Board
 }

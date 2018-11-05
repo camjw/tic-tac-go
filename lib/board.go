@@ -1,4 +1,4 @@
-package board
+package lib
 
 import "fmt"
 
@@ -8,7 +8,7 @@ type Board struct {
   NextTurn string
 }
 
-func New(symbol string) (*Board) {
+func NewBoard(symbol string) (*Board) {
   EmptyGrid := [3][3]string{
     [3]string{"-", "-", "-"},
     [3]string{"-", "-", "-"},
@@ -99,4 +99,8 @@ func (b Board) DiagonalWin(symbol string) (bool) {
     return true
   }
   return false
+}
+
+func (b Board) Clone() (Board) {
+  return b
 }
