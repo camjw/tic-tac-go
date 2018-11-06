@@ -1,24 +1,30 @@
 package main
 
-import board "github.com/camjw/tic-tac-go/lib/board"
-import players "github.com/camjw/tic-tac-go/lib/players"
+import lib "github.com/camjw/tic-tac-go/lib"
 
 import "fmt"
 
 func main() {
-  board := board.New("X")
-  player := players.NewPlayer(board)
-  computer := players.NewComputer(board)
-  player.PlayerMove(0)
+	board := lib.NewBoard("O")
+	player := lib.NewPlayer(board)
+	computer := lib.NewComputer(board)
+  // computer.MiniMax(board)
+  computer.ComputerMove()
+	// player.PlayerMove(0)
+  player.PlayerMove(4)
+  // computer.MiniMax(board)
+  // computer.ComputerMove()
   board.Print()
-  fmt.Println(board.VerticalWin("X"))
-  fmt.Println(board.TotalMoves)
-  for _, move := range board.GetValidMoves() {
-    possible_board := *board
-    possible_board.PlayMove(move, "O")
-    possible_board.Print()
-  }
-  // fmt.Println(computer.MiniMax(board))
+  computer.ComputerMove()
+  board.Print()
+  computer.ComputerMove()
+  board.Print()
+	// for _, move := range board.GetValidMoves() {
+	//   possible_board := *board
+	//   possible_board.PlayMove(move, "O")
+	//   possible_board.Print()
+	// }
+	// fmt.Println(computer.MiniMax(board))
 
-  fmt.Println(computer.NextMove)
+	fmt.Println(computer.NextMove)
 }
