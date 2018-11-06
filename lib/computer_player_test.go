@@ -32,3 +32,11 @@ func TestTakesWinners(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func TestIndexInSliceWhenNotElement(t *testing.T) {
+	got := indexInSlice([]float64{1.0}, 0.0)
+	want := -1
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
