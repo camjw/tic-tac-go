@@ -1,6 +1,8 @@
 package lib
 
 import "sort"
+import "fmt"
+
 
 type ComputerPlayer struct {
 	Symbol   string
@@ -38,8 +40,9 @@ func (c *ComputerPlayer) MiniMax(board BoardToPlay) float64 {
 	for _, move := range board.GetValidMoves() {
 		possible_board := board.Clone()
 		possible_board.PlayMove(move, possible_board.WhoseTurn())
-		scores = append(scores, c.MiniMax(&possible_board))
+		scores = append(scores, 0.9 * c.MiniMax(&possible_board))
 		moves = append(moves, move)
+		fmt.Println(scores, moves)
 	}
 
 	return c.scorePosition(board, moves, scores)
@@ -58,13 +61,11 @@ func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []
 }
 
 func minFloat64Slice(slice []float64) float64 {
-	sort.Float64s(slice)
-	return slice[0]
+	return orderFloat64Slice(slice)[0]
 }
 
 func maxFloat64Slice(slice []float64) float64 {
-	sort.Float64s(slice)
-	return slice[len(slice)-1]
+  return orderFloat64Slice(slice)[len(slice)-1]
 }
 
 func indexInSlice(slice []float64, value float64) int {
@@ -74,4 +75,13 @@ func indexInSlice(slice []float64, value float64) int {
 		}
 	}
 	return -1
+}
+
+func orderFloat64Slice(slice []float64) []float64 {
+	output := []float64{}
+	for _, value := range slice {
+		output = append(output, value)
+	}
+	sort.Float64s(output)
+	return output
 }
