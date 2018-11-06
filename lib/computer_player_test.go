@@ -4,7 +4,7 @@ import "testing"
 import "reflect"
 
 func TestComputerMoveIndex(t *testing.T) {
-	mockboard := MockBoard{}
+	mockboard := BoardToPlayMock{}
 	computer := NewComputer(&mockboard)
 	computer.ComputerMove()
 	got := mockboard.Index
@@ -15,7 +15,7 @@ func TestComputerMoveIndex(t *testing.T) {
 }
 
 func TestComputerMoveSymbol(t *testing.T) {
-	mockboard := MockBoard{}
+	mockboard := BoardToPlayMock{}
 	computer := NewComputer(&mockboard)
 	computer.ComputerMove()
 	got := mockboard.Symbol
@@ -26,7 +26,7 @@ func TestComputerMoveSymbol(t *testing.T) {
 }
 
 func TestComputerGetValidMoves(t *testing.T) {
-	mockboard := MockBoard{}
+	mockboard := BoardToPlayMock{}
 	computer := NewComputer(&mockboard)
 	got := computer.GetValidBoardMoves()
 	want := []int{0}
@@ -36,7 +36,7 @@ func TestComputerGetValidMoves(t *testing.T) {
 }
 
 func TestScoreNotEnded(t *testing.T) {
-	mockboard := MockBoard{}
+	mockboard := BoardToPlayMock{}
 	computer := NewComputer(&mockboard)
 	got := computer.Score(&mockboard)
 	want := 0.0

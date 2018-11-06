@@ -3,7 +3,7 @@ package lib
 import "testing"
 
 func TestPlayerMoveIndex(t *testing.T) {
-	mockboard := MockBoard{}
+	mockboard := BoardToPlayMock{}
 	player := NewPlayer(&mockboard)
 	player.PlayerMove(1)
 	got := mockboard.Index
@@ -14,7 +14,7 @@ func TestPlayerMoveIndex(t *testing.T) {
 }
 
 func TestPlayerMoveSymbol(t *testing.T) {
-	mockboard := MockBoard{}
+	mockboard := BoardToPlayMock{}
 	player := NewPlayer(&mockboard)
 	player.PlayerMove(1)
 	got := player.Symbol

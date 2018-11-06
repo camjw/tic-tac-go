@@ -4,7 +4,7 @@ import "testing"
 import "reflect"
 
 func TestNew(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	got := board.Grid
 	want := [3][3]string{
 		[3]string{"-", "-", "-"},
@@ -17,7 +17,7 @@ func TestNew(t *testing.T) {
 }
 
 func TestPlayMove(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	board.PlayMove(3, "X")
 	got := board.Grid
 	want := [3][3]string{
@@ -31,7 +31,7 @@ func TestPlayMove(t *testing.T) {
 }
 
 func TestSwitchMoveX(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	board.SwitchPlayer()
 	got := board.WhoseTurn()
 	want := "O"
@@ -41,7 +41,7 @@ func TestSwitchMoveX(t *testing.T) {
 }
 
 func TestSwitchMoveO(t *testing.T) {
-	board := New("O")
+	board := NewBoard("O")
 	board.SwitchPlayer()
 	got := board.WhoseTurn()
 	want := "X"
@@ -51,7 +51,7 @@ func TestSwitchMoveO(t *testing.T) {
 }
 
 func TestPlayMoveIncreaseTotalMoves(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	board.PlayMove(3, "X")
 	got := board.TotalMoves
 	want := 1
@@ -61,7 +61,7 @@ func TestPlayMoveIncreaseTotalMoves(t *testing.T) {
 }
 
 func TestGetValidMoves(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	got := board.GetValidMoves()
 	want := []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
 	if !reflect.DeepEqual(got, want) {
@@ -70,7 +70,7 @@ func TestGetValidMoves(t *testing.T) {
 }
 
 func ExampleBoard_Print() {
-	board := New("X")
+	board := NewBoard("X")
 	board.Print()
 	// Output:
 	// [- - -]
@@ -79,7 +79,7 @@ func ExampleBoard_Print() {
 }
 
 func TestHorizontalWinTrue(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	for i := 0; i < 3; i++ {
 		board.PlayMove(i, "X")
 	}
@@ -91,7 +91,7 @@ func TestHorizontalWinTrue(t *testing.T) {
 }
 
 func TestVerticalWinTrue(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	for i := 0; i < 3; i++ {
 		board.PlayMove(3*i, "X")
 	}
@@ -103,7 +103,7 @@ func TestVerticalWinTrue(t *testing.T) {
 }
 
 func TestDiagonalWinTrue(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	for i := 0; i < 3; i++ {
 		board.PlayMove(4*i, "X")
 	}
@@ -115,7 +115,7 @@ func TestDiagonalWinTrue(t *testing.T) {
 }
 
 func TestWinner(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	for i := 0; i < 3; i++ {
 		board.PlayMove(4*i, "X")
 	}
@@ -127,7 +127,7 @@ func TestWinner(t *testing.T) {
 }
 
 func TestNoWin(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	got := board.Winner("X")
 	want := false
 	if got != want {
@@ -136,7 +136,7 @@ func TestNoWin(t *testing.T) {
 }
 
 func TestGameOverTrue(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	for i := 0; i < 3; i++ {
 		board.PlayMove(4*i, "X")
 	}
@@ -148,7 +148,7 @@ func TestGameOverTrue(t *testing.T) {
 }
 
 func TestGameOverFalse(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	got := board.GameOver()
 	want := false
 	if got != want {
@@ -157,7 +157,7 @@ func TestGameOverFalse(t *testing.T) {
 }
 
 func TestGameOverTooManyMoves(t *testing.T) {
-	board := New("X")
+	board := NewBoard("X")
 	for _, i := range [5]int{0, 1, 5, 6, 7} {
 		board.PlayMove(i, "X")
 	}
