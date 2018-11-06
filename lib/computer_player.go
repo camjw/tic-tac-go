@@ -2,8 +2,6 @@ package lib
 
 import "sort"
 
-// import "fmt"
-
 type ComputerPlayer struct {
 	Symbol   string
 	Board    BoardToPlay
@@ -29,17 +27,34 @@ func (c ComputerPlayer) Score(game BoardToPlay) float64 {
 	}
 }
 
-func (c ComputerPlayer) MiniMax(board BoardToPlay) float64 {
+func (c *ComputerPlayer) MiniMax(board BoardToPlay) float64 {
 	if board.GameOver() {
 		return c.Score(board)
 	}
 
+	scores:= []float64{}
+	moves:= []int{}
+
 	for _, move := range board.GetValidMoves() {
 		possible_board := board.Clone()
-		possible_board.PlayMove(move, "O")
-		possible_board.Print()
+		possible_board.PlayMove(move, possible_board.WhoseTurn())
+		scores = append(scores, c.MiniMax(&possible_board))
+		moves = append(moves, move)
 	}
-	return -1
+
+	return c.scorePosition(board, moves, scores)
+}
+
+func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []float64) float64 {
+  if board.WhoseTurn() == "O" {
+		max_score_index := indexInSlice(scores, maxFloat64Slice(scores))
+		c.NextMove = moves[max_score_index]
+		return scores[max_score_index]
+	} else {
+		min_score_index := indexInSlice(scores, minFloat64Slice(scores))
+		c.NextMove = moves[min_score_index]
+		return scores[min_score_index]
+	}
 }
 
 func minFloat64Slice(slice []float64) float64 {
