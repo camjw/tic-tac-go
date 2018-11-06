@@ -17,39 +17,29 @@ var (
 	lockBoardToPlayMockWinner        sync.RWMutex
 )
 
-// BoardToPlayMock is a mock implementation of BoardToPlay.
-//
-//     func TestSomethingThatUsesBoardToPlay(t *testing.T) {
-//
-//         // make and configure a mocked BoardToPlay
-//         mockedBoardToPlay := &BoardToPlayMock{
-//             CloneFunc: func() Board {
-// 	               panic("TODO: mock out the Clone method")
-//             },
-//             GameOverFunc: func() bool {
-// 	               panic("TODO: mock out the GameOver method")
-//             },
-//             GetValidMovesFunc: func() []int {
-// 	               panic("TODO: mock out the GetValidMoves method")
-//             },
-//             PlayMoveFunc: func(in1 int, in2 string)  {
-// 	               panic("TODO: mock out the PlayMove method")
-//             },
-//             PrintFunc: func()  {
-// 	               panic("TODO: mock out the Print method")
-//             },
-//             WhoseTurnFunc: func() string {
-// 	               panic("TODO: mock out the WhoseTurn method")
-//             },
-//             WinnerFunc: func(in1 string) bool {
-// 	               panic("TODO: mock out the Winner method")
-//             },
-//         }
-//
-//         // TODO: use mockedBoardToPlay in code that requires BoardToPlay
-//         //       and then make assertions.
-//
-//     }
+
+var mockboard = BoardToPlayMock{
+	CloneFunc: func() Board {
+		return Board{}
+	},
+	GameOverFunc: func() bool {
+		return false
+	},
+	GetValidMovesFunc: func() []int {
+		return []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
+	},
+	PlayMoveFunc: func(in1 int, in2 string) {
+	},
+	PrintFunc: func() {
+	},
+	WhoseTurnFunc: func() string {
+		return "O"
+	},
+	WinnerFunc: func(in1 string) bool {
+		return false
+	},
+}
+
 type BoardToPlayMock struct {
 	// CloneFunc mocks the Clone method.
 	CloneFunc func() Board

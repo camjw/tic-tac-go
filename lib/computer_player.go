@@ -32,8 +32,8 @@ func (c *ComputerPlayer) MiniMax(board BoardToPlay) float64 {
 		return c.Score(board)
 	}
 
-	scores:= []float64{}
-	moves:= []int{}
+	scores := []float64{}
+	moves := []int{}
 
 	for _, move := range board.GetValidMoves() {
 		possible_board := board.Clone()
@@ -46,7 +46,7 @@ func (c *ComputerPlayer) MiniMax(board BoardToPlay) float64 {
 }
 
 func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []float64) float64 {
-  if board.WhoseTurn() == "O" {
+	if board.WhoseTurn() == "O" {
 		max_score_index := indexInSlice(scores, maxFloat64Slice(scores))
 		c.NextMove = moves[max_score_index]
 		return scores[max_score_index]

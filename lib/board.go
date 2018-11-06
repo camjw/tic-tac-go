@@ -10,9 +10,9 @@ type Board struct {
 
 func NewBoard(symbol string) *Board {
 	EmptyGrid := [3][3]string{
-		[3]string{"-", "-", "-"},
-		[3]string{"-", "-", "-"},
-		[3]string{"-", "-", "-"},
+		{"-", "-", "-"},
+		{"-", "-", "-"},
+		{"-", "-", "-"},
 	}
 	return &Board{EmptyGrid, 0, symbol}
 }

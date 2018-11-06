@@ -56,7 +56,7 @@
 				
 				<option value="file0">github.com/camjw/tic-tac-go/lib/board.go (100.0%)</option>
 				
-				<option value="file1">github.com/camjw/tic-tac-go/lib/computer_player.go (76.9%)</option>
+				<option value="file1">github.com/camjw/tic-tac-go/lib/computer_player.go (12.1%)</option>
 				
 				<option value="file2">github.com/camjw/tic-tac-go/lib/player.go (100.0%)</option>
 				
@@ -77,136 +77,201 @@
 import "fmt"
 
 type Board struct {
-  Grid [3][3]string
-  TotalMoves int
+        Grid       [3][3]string
+        TotalMoves int
+        NextTurn   string
 }
 
-func NewBoard() (*Board) <span class="cov8" title="1">{
-  EmptyGrid := [3][3]string{
-    [3]string{"-", "-", "-"},
-    [3]string{"-", "-", "-"},
-    [3]string{"-", "-", "-"},
-  }
-  return &amp;Board{EmptyGrid, 0}
+func NewBoard(symbol string) *Board <span class="cov8" title="1">{
+        EmptyGrid := [3][3]string{
+                {"-", "-", "-"},
+                {"-", "-", "-"},
+                {"-", "-", "-"},
+        }
+        return &amp;Board{EmptyGrid, 0, symbol}
 }</span>
 
-func (b Board) Print() () <span class="cov8" title="1">{
-  for i, _ := range b.Grid </span><span class="cov8" title="1">{
-    fmt.Println(b.Grid[i])
-  }</span>
-}
-
-func (b *Board) PlayMove(index int, token string) () <span class="cov8" title="1">{
-  row, column := index / 3, index % 3
-  b.Grid[row][column] = token
-  b.TotalMoves++
+func (b Board) WhoseTurn() string <span class="cov8" title="1">{
+        return b.NextTurn
 }</span>
 
-func (b *Board) GetValidMoves() ([]int) <span class="cov8" title="1">{
-  output := []int{}
-  for i, _ := range b.Grid </span><span class="cov8" title="1">{
-    for j, _ := range b.Grid[i] </span><span class="cov8" title="1">{
-      if b.Grid[i][j] == "-" </span><span class="cov8" title="1">{
-        output = append(output, 3 * i + j)
-      }</span>
-    }
-  }
-  <span class="cov8" title="1">return output</span>
+func (b Board) Print() <span class="cov8" title="1">{
+        for i := range b.Grid </span><span class="cov8" title="1">{
+                fmt.Println(b.Grid[i])
+        }</span>
 }
 
-func (b Board) Winner(symbol string) (bool) <span class="cov8" title="1">{
-  if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) </span><span class="cov8" title="1">{
-    return true
-  }</span>
-  <span class="cov8" title="1">return false</span>
+func (b *Board) SwitchPlayer() <span class="cov8" title="1">{
+        if b.WhoseTurn() == "X" </span><span class="cov8" title="1">{
+                b.NextTurn = "O"
+        }</span> else<span class="cov8" title="1"> {
+                b.NextTurn = "X"
+        }</span>
 }
 
-func (b Board) VerticalWin(symbol string) (bool) <span class="cov8" title="1">{
-  for i := 0; i &lt; 3; i++ </span><span class="cov8" title="1">{
-    column := [3]string{b.Grid[0][i], b.Grid[1][i], b.Grid[2][i]}
-    if column == [3]string{symbol, symbol, symbol} </span><span class="cov8" title="1">{
-      return true
-    }</span>
-  }
-  <span class="cov8" title="1">return false</span>
+func (b *Board) PlayMove(index int, symbol string) <span class="cov8" title="1">{
+        row, column := index/3, index%3
+        b.Grid[row][column] = symbol
+        b.TotalMoves += 1
+        b.SwitchPlayer()
+}</span>
+
+func (b *Board) GetValidMoves() []int <span class="cov8" title="1">{
+        output := []int{}
+        for i := range b.Grid </span><span class="cov8" title="1">{
+                for j := range b.Grid[i] </span><span class="cov8" title="1">{
+                        if b.Grid[i][j] == "-" </span><span class="cov8" title="1">{
+                                output = append(output, 3*i+j)
+                        }</span>
+                }
+        }
+        <span class="cov8" title="1">if b.GameOver() </span><span class="cov8" title="1">{
+                return []int{}
+        }</span>
+        <span class="cov8" title="1">return output</span>
 }
 
-func (b Board) HorizontalWin(symbol string) (bool) <span class="cov8" title="1">{
-  for i := 0; i &lt; 3; i++ </span><span class="cov8" title="1">{
-    row := b.Grid[i]
-    if row == [3]string{symbol, symbol, symbol} </span><span class="cov8" title="1">{
-      return true
-    }</span>
-  }
-  <span class="cov8" title="1">return false</span>
+func (b Board) Winner(symbol string) bool <span class="cov8" title="1">{
+        if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) </span><span class="cov8" title="1">{
+                return true
+        }</span>
+        <span class="cov8" title="1">return false</span>
 }
 
-func (b Board) DiagonalWin(symbol string) (bool) <span class="cov8" title="1">{
-  ddiag := [3]string{b.Grid[0][0], b.Grid[1][1], b.Grid[2][2]}
-  udiag := [3]string{b.Grid[0][2], b.Grid[1][1], b.Grid[0][2]}
-  winner := [3]string{symbol, symbol, symbol}
-  if udiag == winner || ddiag == winner </span><span class="cov8" title="1">{
-    return true
-  }</span>
-  <span class="cov8" title="1">return false</span>
+func (b Board) GameOver() bool <span class="cov8" title="1">{
+        if b.Winner("X") || b.Winner("O") || b.TotalMoves == 9 </span><span class="cov8" title="1">{
+                return true
+        }</span>
+        <span class="cov8" title="1">return false</span>
 }
+
+func (b Board) VerticalWin(symbol string) bool <span class="cov8" title="1">{
+        for i := 0; i &lt; 3; i++ </span><span class="cov8" title="1">{
+                column := [3]string{b.Grid[0][i], b.Grid[1][i], b.Grid[2][i]}
+                if column == [3]string{symbol, symbol, symbol} </span><span class="cov8" title="1">{
+                        return true
+                }</span>
+        }
+        <span class="cov8" title="1">return false</span>
+}
+
+func (b Board) HorizontalWin(symbol string) bool <span class="cov8" title="1">{
+        for i := 0; i &lt; 3; i++ </span><span class="cov8" title="1">{
+                row := b.Grid[i]
+                if row == [3]string{symbol, symbol, symbol} </span><span class="cov8" title="1">{
+                        return true
+                }</span>
+        }
+        <span class="cov8" title="1">return false</span>
+}
+
+func (b Board) DiagonalWin(symbol string) bool <span class="cov8" title="1">{
+        ddiag := [3]string{b.Grid[0][0], b.Grid[1][1], b.Grid[2][2]}
+        udiag := [3]string{b.Grid[0][2], b.Grid[1][1], b.Grid[2][0]}
+        winner := [3]string{symbol, symbol, symbol}
+        if udiag == winner || ddiag == winner </span><span class="cov8" title="1">{
+                return true
+        }</span>
+        <span class="cov8" title="1">return false</span>
+}
+
+func (b Board) Clone() Board <span class="cov8" title="1">{
+        return b
+}</span>
 </pre>
 		
 		<pre class="file" id="file1" style="display: none">package lib
 
+import "sort"
+
 type ComputerPlayer struct {
-  Symbol string
-  Board BoardToPlay
+        Symbol   string
+        Board    BoardToPlay
+        NextMove int
 }
 
-func NewComputer(symbol string, board BoardToPlay) (*ComputerPlayer) <span class="cov8" title="1">{
-  return &amp;ComputerPlayer{symbol, board}
+func NewComputer(board BoardToPlay) *ComputerPlayer <span class="cov8" title="1">{
+        return &amp;ComputerPlayer{"O", board, -1}
 }</span>
 
-func (c *ComputerPlayer) ComputerMove() () <span class="cov8" title="1">{
-  index := c.DecideMove()
-  c.Board.PlayMove(index, c.Symbol)
+func (c *ComputerPlayer) ComputerMove() <span class="cov0" title="0">{
+        c.MiniMax(c.Board)
+        c.Board.PlayMove(c.NextMove, c.Symbol)
 }</span>
 
-func (c ComputerPlayer) GetOtherSymbol() (string) <span class="cov8" title="1">{
-  if (c.Symbol == "X") </span><span class="cov0" title="0">{
-    return "O"
-  }</span>
-  <span class="cov8" title="1">return "X"</span>
+func (c ComputerPlayer) Score(game BoardToPlay) float64 <span class="cov8" title="1">{
+        if game.Winner("O") </span><span class="cov0" title="0">{
+                return 1.0
+        }</span> else<span class="cov8" title="1"> if game.Winner("X") </span><span class="cov0" title="0">{
+                return -1.0
+        }</span> else<span class="cov8" title="1"> {
+                return 0.0
+        }</span>
 }
 
-func (c ComputerPlayer) GetValidBoardMoves() ([]int) <span class="cov8" title="1">{
-  return c.Board.GetValidMoves()
-}</span>
+func (c *ComputerPlayer) MiniMax(board BoardToPlay) float64 <span class="cov0" title="0">{
+        if board.GameOver() </span><span class="cov0" title="0">{
+                return c.Score(board)
+        }</span>
 
-func (c ComputerPlayer) Score(game BoardToPlay) (float64) <span class="cov8" title="1">{
-  if (game.Winner(c.Symbol)) </span><span class="cov0" title="0">{
-    return 1.0
-  }</span> else<span class="cov8" title="1"> if (game.Winner(c.GetOtherSymbol())) </span><span class="cov0" title="0">{
-    return -1.0
-  }</span> else<span class="cov8" title="1"> {
-    return 0.0
-  }</span>
+        <span class="cov0" title="0">scores := []float64{}
+        moves := []int{}
+
+        for _, move := range board.GetValidMoves() </span><span class="cov0" title="0">{
+                possible_board := board.Clone()
+                possible_board.PlayMove(move, possible_board.WhoseTurn())
+                scores = append(scores, c.MiniMax(&amp;possible_board))
+                moves = append(moves, move)
+        }</span>
+
+        <span class="cov0" title="0">return c.scorePosition(board, moves, scores)</span>
 }
 
-func (c ComputerPlayer) DecideMove() (int) <span class="cov8" title="1">{
-  return 1
+func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []float64) float64 <span class="cov0" title="0">{
+        if board.WhoseTurn() == "O" </span><span class="cov0" title="0">{
+                max_score_index := indexInSlice(scores, maxFloat64Slice(scores))
+                c.NextMove = moves[max_score_index]
+                return scores[max_score_index]
+        }</span> else<span class="cov0" title="0"> {
+                min_score_index := indexInSlice(scores, minFloat64Slice(scores))
+                c.NextMove = moves[min_score_index]
+                return scores[min_score_index]
+        }</span>
+}
+
+func minFloat64Slice(slice []float64) float64 <span class="cov0" title="0">{
+        sort.Float64s(slice)
+        return slice[0]
 }</span>
+
+func maxFloat64Slice(slice []float64) float64 <span class="cov0" title="0">{
+        sort.Float64s(slice)
+        return slice[len(slice)-1]
+}</span>
+
+func indexInSlice(slice []float64, value float64) int <span class="cov0" title="0">{
+        for i, v := range slice </span><span class="cov0" title="0">{
+                if v == value </span><span class="cov0" title="0">{
+                        return i
+                }</span>
+        }
+        <span class="cov0" title="0">return -1</span>
+}
 </pre>
 		
 		<pre class="file" id="file2" style="display: none">package lib
 
 type Player struct {
-  Symbol string
-  Board BoardToPlay
+        Symbol string
+        Board  BoardToPlay
 }
 
-func NewPlayer(symbol string, board BoardToPlay) (*Player) <span class="cov8" title="1">{
-  return &amp;Player{symbol, board}
+func NewPlayer(board BoardToPlay) *Player <span class="cov8" title="1">{
+        return &amp;Player{"X", board}
 }</span>
 
-func (p *Player) PlayerMove(index int) () <span class="cov8" title="1">{
-  p.Board.PlayMove(index, p.Symbol)
+func (p *Player) PlayerMove(index int) <span class="cov8" title="1">{
+        p.Board.PlayMove(index, p.Symbol)
 }</span>
 </pre>
 		

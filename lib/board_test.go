@@ -7,9 +7,9 @@ func TestNew(t *testing.T) {
 	board := NewBoard("X")
 	got := board.Grid
 	want := [3][3]string{
-		[3]string{"-", "-", "-"},
-		[3]string{"-", "-", "-"},
-		[3]string{"-", "-", "-"},
+		{"-", "-", "-"},
+		{"-", "-", "-"},
+		{"-", "-", "-"},
 	}
 	if got != want {
 		t.Errorf("got %.s want %.s", got, want)
@@ -21,9 +21,9 @@ func TestPlayMove(t *testing.T) {
 	board.PlayMove(3, "X")
 	got := board.Grid
 	want := [3][3]string{
-		[3]string{"-", "-", "-"},
-		[3]string{"X", "-", "-"},
-		[3]string{"-", "-", "-"},
+		{"-", "-", "-"},
+		{"X", "-", "-"},
+		{"-", "-", "-"},
 	}
 	if got != want {
 		t.Errorf("got %.s want %.s", got, want)
@@ -64,6 +64,18 @@ func TestGetValidMoves(t *testing.T) {
 	board := NewBoard("X")
 	got := board.GetValidMoves()
 	want := []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestGetValidMovesWhenGameOver(t *testing.T) {
+	board := NewBoard("X")
+	for i := 0; i < 3; i++ {
+		board.PlayMove(i, "X")
+	}
+	got := board.GetValidMoves()
+	want := []int{}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v want %v", got, want)
 	}
@@ -168,5 +180,14 @@ func TestGameOverTooManyMoves(t *testing.T) {
 	want := true
 	if got != want {
 		t.Errorf("got %t want %t", got, want)
+	}
+}
+
+func TestClone(t *testing.T) {
+	board := NewBoard("X")
+	got := board.Clone()
+	want := board
+	if got != *want {
+		t.Errorf("Clone not working correctly")
 	}
 }
