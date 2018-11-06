@@ -1,44 +1,6 @@
 package lib
 
 import "testing"
-import "fmt"
-
-// import "reflect"
-
-func TestScoreGameNotEnded(t *testing.T) {
-	computer := NewComputer(&mockboard)
-	got := computer.Score(&mockboard)
-	want := 0.0
-	if got != want {
-		t.Errorf("Got %.f calls but want %.f", got, want)
-	}
-}
-
-func TestScoreXWinner(t *testing.T) {
-	board := NewBoard("X")
-	for i := 0; i < 3; i++ {
-		board.PlayMove(i, "X")
-	}
-	computer := NewComputer(board)
-	got := computer.Score(board)
-	want := -1.0
-	if got != want {
-		t.Errorf("got %f want %f", got, want)
-	}
-}
-
-func TestScoreOWinner(t *testing.T) {
-	board := NewBoard("X")
-	for i := 0; i < 3; i++ {
-		board.PlayMove(i, "O")
-	}
-	computer := NewComputer(board)
-	got := computer.Score(board)
-	want := 1.0
-	if got != want {
-		t.Errorf("got %f want %f", got, want)
-	}
-}
 
 func TestAvoidsLosses(t *testing.T) {
 	board := NewBoard("X")
@@ -62,8 +24,6 @@ func TestTakesWinners(t *testing.T) {
 	for _, move := range [2]int{3, 4} {
 		board.PlayMove(move, "O")
 	}
-	fmt.Println(board.WhoseTurn())
-	board.Print()
 	computer := NewComputer(board)
 	computer.ComputerMove()
 	got := computer.NextMove

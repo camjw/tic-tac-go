@@ -56,7 +56,7 @@
 				
 				<option value="file0">github.com/camjw/tic-tac-go/lib/board.go (100.0%)</option>
 				
-				<option value="file1">github.com/camjw/tic-tac-go/lib/computer_player.go (97.3%)</option>
+				<option value="file1">github.com/camjw/tic-tac-go/lib/computer_player.go (97.2%)</option>
 				
 				<option value="file2">github.com/camjw/tic-tac-go/lib/player.go (100.0%)</option>
 				
@@ -183,8 +183,6 @@ func (b Board) Clone() Board <span class="cov8" title="1">{
 		<pre class="file" id="file1" style="display: none">package lib
 
 import "sort"
-import "fmt"
-
 
 type ComputerPlayer struct {
         Symbol   string
@@ -197,11 +195,11 @@ func NewComputer(board BoardToPlay) *ComputerPlayer <span class="cov8" title="1"
 }</span>
 
 func (c *ComputerPlayer) ComputerMove() <span class="cov8" title="1">{
-        c.MiniMax(c.Board)
+        c.miniMax(c.Board)
         c.Board.PlayMove(c.NextMove, c.Symbol)
 }</span>
 
-func (c ComputerPlayer) Score(game BoardToPlay) float64 <span class="cov8" title="1">{
+func (c ComputerPlayer) score(game BoardToPlay) float64 <span class="cov8" title="1">{
         if game.Winner("O") </span><span class="cov8" title="1">{
                 return 1.0
         }</span> else<span class="cov8" title="1"> if game.Winner("X") </span><span class="cov8" title="1">{
@@ -211,9 +209,9 @@ func (c ComputerPlayer) Score(game BoardToPlay) float64 <span class="cov8" title
         }</span>
 }
 
-func (c *ComputerPlayer) MiniMax(board BoardToPlay) float64 <span class="cov8" title="1">{
+func (c *ComputerPlayer) miniMax(board BoardToPlay) float64 <span class="cov8" title="1">{
         if board.GameOver() </span><span class="cov8" title="1">{
-                return c.Score(board)
+                return c.score(board)
         }</span>
 
         <span class="cov8" title="1">scores := []float64{}
@@ -222,9 +220,8 @@ func (c *ComputerPlayer) MiniMax(board BoardToPlay) float64 <span class="cov8" t
         for _, move := range board.GetValidMoves() </span><span class="cov8" title="1">{
                 possible_board := board.Clone()
                 possible_board.PlayMove(move, possible_board.WhoseTurn())
-                scores = append(scores, 0.9 * c.MiniMax(&amp;possible_board))
+                scores = append(scores, 0.9 * c.miniMax(&amp;possible_board))
                 moves = append(moves, move)
-                fmt.Println(scores, moves)
         }</span>
 
         <span class="cov8" title="1">return c.scorePosition(board, moves, scores)</span>
