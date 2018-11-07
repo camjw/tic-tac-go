@@ -1,7 +1,5 @@
 package lib
 
-import "sort"
-
 type ComputerPlayer struct {
 	Symbol   string
 	Board    BoardToPlay
@@ -55,30 +53,4 @@ func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []
 		c.NextMove = moves[min_score_index]
 		return scores[min_score_index]
 	}
-}
-
-func minFloat64Slice(slice []float64) float64 {
-	return orderFloat64Slice(slice)[0]
-}
-
-func maxFloat64Slice(slice []float64) float64 {
-  return orderFloat64Slice(slice)[len(slice)-1]
-}
-
-func indexInSlice(slice []float64, value float64) int {
-	for i, v := range slice {
-		if v == value {
-			return i
-		}
-	}
-	return -1
-}
-
-func orderFloat64Slice(slice []float64) []float64 {
-	output := []float64{}
-	for _, value := range slice {
-		output = append(output, value)
-	}
-	sort.Float64s(output)
-	return output
 }

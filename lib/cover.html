@@ -58,7 +58,9 @@
 				
 				<option value="file1">github.com/camjw/tic-tac-go/lib/computer_player.go (100.0%)</option>
 				
-				<option value="file2">github.com/camjw/tic-tac-go/lib/player.go (100.0%)</option>
+				<option value="file2">github.com/camjw/tic-tac-go/lib/helpers.go (55.6%)</option>
+				
+				<option value="file3">github.com/camjw/tic-tac-go/lib/player.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -182,8 +184,6 @@ func (b Board) Clone() Board <span class="cov8" title="1">{
 		
 		<pre class="file" id="file1" style="display: none">package lib
 
-import "sort"
-
 type ComputerPlayer struct {
         Symbol   string
         Board    BoardToPlay
@@ -238,6 +238,44 @@ func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []
                 return scores[min_score_index]
         }</span>
 }
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package lib
+
+import (
+  "fmt"
+  "strconv"
+  "sort"
+)
+
+func intInSlice(a int, list []int) bool <span class="cov8" title="1">{
+    for _, b := range list </span><span class="cov8" title="1">{
+        if b == a </span><span class="cov8" title="1">{
+            return true
+        }</span>
+    }
+    <span class="cov8" title="1">return false</span>
+}
+
+func getUserInput(board BoardToPlay) string <span class="cov0" title="0">{
+        var input string
+        fmt.Println("Valid moves: ", board.GetValidMoves())
+        fmt.Print("Choose move!\n")
+        fmt.Scanln(&amp;input)
+        return input
+}</span>
+
+func GetMove(board BoardToPlay) int <span class="cov0" title="0">{
+        for </span><span class="cov0" title="0">{
+                move, err := strconv.Atoi(getUserInput(board))
+                if (err == nil) &amp;&amp; (intInSlice(move, board.GetValidMoves())) </span><span class="cov0" title="0">{
+                        return move
+                        break</span>
+                }
+    <span class="cov0" title="0">GetMove(board)</span>
+        }
+        <span class="cov0" title="0">return -1</span>
+}
 
 func minFloat64Slice(slice []float64) float64 <span class="cov8" title="1">{
         return orderFloat64Slice(slice)[0]
@@ -266,7 +304,7 @@ func orderFloat64Slice(slice []float64) []float64 <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file2" style="display: none">package lib
+		<pre class="file" id="file3" style="display: none">package lib
 
 type Player struct {
         Symbol string
