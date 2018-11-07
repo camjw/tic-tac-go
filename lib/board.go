@@ -66,7 +66,7 @@ func (b *Board) GetValidMoves() []int {
 
 func (b Board) Winner(symbol string) bool {
 	// Checks if the game has been won by the passed symbol
-	if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) {
+	if b.verticalWin(symbol) || b.horizontalWin(symbol) || b.diagonalWin(symbol) {
 		return true
 	}
 	return false

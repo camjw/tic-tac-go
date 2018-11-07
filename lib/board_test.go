@@ -32,7 +32,7 @@ func TestPlayMove(t *testing.T) {
 
 func TestSwitchMoveX(t *testing.T) {
 	board := NewBoard("X")
-	board.SwitchPlayer()
+	board.switchPlayer()
 	got := board.WhoseTurn()
 	want := "O"
 	if got != want {
@@ -42,7 +42,7 @@ func TestSwitchMoveX(t *testing.T) {
 
 func TestSwitchMoveO(t *testing.T) {
 	board := NewBoard("O")
-	board.SwitchPlayer()
+	board.switchPlayer()
 	got := board.WhoseTurn()
 	want := "X"
 	if got != want {
@@ -95,7 +95,7 @@ func TestHorizontalWinTrue(t *testing.T) {
 	for i := 0; i < 3; i++ {
 		board.PlayMove(i, "X")
 	}
-	got := board.HorizontalWin("X")
+	got := board.horizontalWin("X")
 	want := true
 	if got != want {
 		t.Errorf("got %t want %t", got, want)
@@ -107,7 +107,7 @@ func TestVerticalWinTrue(t *testing.T) {
 	for i := 0; i < 3; i++ {
 		board.PlayMove(3*i, "X")
 	}
-	got := board.VerticalWin("X")
+	got := board.verticalWin("X")
 	want := true
 	if got != want {
 		t.Errorf("got %t want %t", got, want)
@@ -119,7 +119,7 @@ func TestDiagonalWinTrue(t *testing.T) {
 	for i := 0; i < 3; i++ {
 		board.PlayMove(4*i, "X")
 	}
-	got := board.DiagonalWin("X")
+	got := board.diagonalWin("X")
 	want := true
 	if got != want {
 		t.Errorf("got %t want %t", got, want)
