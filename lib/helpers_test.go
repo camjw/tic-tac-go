@@ -3,6 +3,7 @@ package lib
 import (
   "testing"
   "strings"
+  "math/rand"
 )
 
 func TestIntInSliceTrue(t *testing.T) {
@@ -34,5 +35,14 @@ func TestGetMoveFailure(t *testing.T) {
   want := -1
   if got != want {
     t.Errorf("got %v want %v", got, want)
+  }
+}
+
+func TestGetFirstPlayer( t *testing.T) {
+  rand.Seed(0)
+  got := GetFirstPlayer()
+  want := "X"
+  if got != want {
+    t.Errorf("got %.s want %.s", got, want)
   }
 }
