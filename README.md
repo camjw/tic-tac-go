@@ -1,13 +1,10 @@
 # Tic-Tac-Go
 A tic-tac-toe game written in Go.
+
 [![Build Status](https://travis-ci.com/camjw/tic-tac-go.svg?branch=master)](https://travis-ci.com/camjw/tic-tac-go)
-
 ![https://github.com/jpoles1/gopherbadger](./coverage_badge.png)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/8ec28b43d94ce48ff7c9/maintainability)](https://codeclimate.com/github/camjw/tic-tac-go/maintainability)
-
 [![Go Report Card](https://goreportcard.com/badge/github.com/camjw/tic-tac-go)](https://goreportcard.com/report/github.com/camjw/tic-tac-go)
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Motivation
