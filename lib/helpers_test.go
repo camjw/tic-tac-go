@@ -17,7 +17,7 @@ func TestIntInSliceFalse(t *testing.T) {
     t.Errorf("got %v want %v", got, want)
   }
 }
-// 
-// func TestGetMove(t *testing.T) {
-//
-// }
+
+func TestGetMove(t *testing.T) {
+
+}
