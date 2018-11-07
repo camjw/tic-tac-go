@@ -5,7 +5,7 @@ import "testing"
 func TestAvoidsLosses(t *testing.T) {
 	board := NewBoard("X")
 	for i := 0; i < 2; i++ {
-		board.PlayMove(2 * i, "X")
+		board.PlayMove(2*i, "X")
 	}
 	computer := NewComputer(board)
 	computer.ComputerMove()

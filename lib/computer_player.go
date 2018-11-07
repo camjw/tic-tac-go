@@ -36,7 +36,7 @@ func (c *ComputerPlayer) miniMax(board BoardToPlay) float64 {
 	for _, move := range board.GetValidMoves() {
 		possible_board := board.Clone()
 		possible_board.PlayMove(move, possible_board.WhoseTurn())
-		scores = append(scores, 0.9 * c.miniMax(&possible_board))
+		scores = append(scores, 0.9*c.miniMax(&possible_board))
 		moves = append(moves, move)
 	}
 

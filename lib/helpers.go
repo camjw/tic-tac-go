@@ -1,21 +1,21 @@
 package lib
 
 import (
-  "fmt"
-  "strconv"
-  "sort"
-  "bufio"
-  "io"
-  "math/rand"
+	"bufio"
+	"fmt"
+	"io"
+	"math/rand"
+	"sort"
+	"strconv"
 )
 
 func GetFirstPlayer() (string, error) {
-  possibleMoves := [2]string{"X", "O"}
-  return possibleMoves[rand.Intn(2)], nil
+	possibleMoves := [2]string{"X", "O"}
+	return possibleMoves[rand.Intn(2)], nil
 }
 
 func GetMove(board BoardToPlay, reader io.Reader) int {
-	for i := 0; i < 5; i ++ {
+	for i := 0; i < 5; i++ {
 		move, err := strconv.Atoi(getUserInput(board, reader))
 		if (err == nil) && (intInSlice(move, board.GetValidMoves())) {
 			return move
@@ -26,20 +26,20 @@ func GetMove(board BoardToPlay, reader io.Reader) int {
 }
 
 func getUserInput(board BoardToPlay, reader io.Reader) string {
-  scanner := bufio.NewScanner(reader)
-  fmt.Println("Valid moves: ", board.GetValidMoves())
-  fmt.Print("Choose move!\n")
-  scanner.Scan()
-  return scanner.Text()
+	scanner := bufio.NewScanner(reader)
+	fmt.Println("Valid moves: ", board.GetValidMoves())
+	fmt.Print("Choose move!\n")
+	scanner.Scan()
+	return scanner.Text()
 }
 
 func intInSlice(a int, list []int) bool {
-  for _, b := range list {
-    if b == a {
-      return true
-    }
-  }
-  return false
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
 }
 
 func minFloat64Slice(slice []float64) float64 {
@@ -47,7 +47,7 @@ func minFloat64Slice(slice []float64) float64 {
 }
 
 func maxFloat64Slice(slice []float64) float64 {
-  return orderFloat64Slice(slice)[len(slice)-1]
+	return orderFloat64Slice(slice)[len(slice)-1]
 }
 
 func indexInSlice(slice []float64, value float64) int {
