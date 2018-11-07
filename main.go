@@ -8,7 +8,8 @@ import (
 
 func main() {
 	fmt.Println("Welcome to Tic-Tac-Go!")
-	board := lib.NewBoard("X")
+
+	board := lib.NewBoard(lib.GetFirstPlayer())
 	player := lib.NewPlayer(board)
 	computer := lib.NewComputer(board)
 	for (!board.GameOver()) {

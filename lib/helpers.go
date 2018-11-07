@@ -6,23 +6,14 @@ import (
   "sort"
   "bufio"
   "io"
+  "math/rand"
+  "time"
 )
 
-func intInSlice(a int, list []int) bool {
-    for _, b := range list {
-        if b == a {
-            return true
-        }
-    }
-    return false
-}
-
-func getUserInput(board BoardToPlay, reader io.Reader) string {
-  scanner := bufio.NewScanner(reader)
-	fmt.Println("Valid moves: ", board.GetValidMoves())
-	fmt.Print("Choose move!\n")
-  scanner.Scan()
-  return scanner.Text()
+func GetFirstPlayer() string {
+  rand.Seed(time.Now().Unix())
+  possibleMoves := [2]string{"X", "O"}
+  return possibleMoves[rand.Intn(2)]
 }
 
 func GetMove(board BoardToPlay, reader io.Reader) int {
@@ -34,6 +25,23 @@ func GetMove(board BoardToPlay, reader io.Reader) int {
 		}
 	}
 	return -1
+}
+
+func getUserInput(board BoardToPlay, reader io.Reader) string {
+  scanner := bufio.NewScanner(reader)
+  fmt.Println("Valid moves: ", board.GetValidMoves())
+  fmt.Print("Choose move!\n")
+  scanner.Scan()
+  return scanner.Text()
+}
+
+func intInSlice(a int, list []int) bool {
+  for _, b := range list {
+    if b == a {
+      return true
+    }
+  }
+  return false
 }
 
 func minFloat64Slice(slice []float64) float64 {
