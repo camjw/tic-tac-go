@@ -1,15 +1,19 @@
 package lib
 
+// Simple AI for tic-tac-toe. Uses the minimax algorithm to choose moves
 type ComputerPlayer struct {
 	Symbol   string
 	Board    BoardToPlay
 	NextMove int
 }
 
+// Returns a new instance of the ComputerPlayer
 func NewComputer(board BoardToPlay) *ComputerPlayer {
 	return &ComputerPlayer{"O", board, -1}
 }
 
+
+// Plays a move for the computer on the computers board
 func (c *ComputerPlayer) ComputerMove() {
 	c.miniMax(c.Board)
 	c.Board.PlayMove(c.NextMove, c.Symbol)
@@ -34,9 +38,9 @@ func (c *ComputerPlayer) miniMax(board BoardToPlay) float64 {
 	moves := []int{}
 
 	for _, move := range board.GetValidMoves() {
-		possible_board := board.Clone()
-		possible_board.PlayMove(move, possible_board.WhoseTurn())
-		scores = append(scores, 0.9*c.miniMax(&possible_board))
+		possibleBoard := board.Clone()
+		possibleBoard.PlayMove(move, possibleBoard.WhoseTurn())
+		scores = append(scores, 0.9*c.miniMax(&possibleBoard))
 		moves = append(moves, move)
 	}
 
@@ -45,12 +49,12 @@ func (c *ComputerPlayer) miniMax(board BoardToPlay) float64 {
 
 func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []float64) float64 {
 	if board.WhoseTurn() == "O" {
-		max_score_index := indexInSlice(scores, maxFloat64Slice(scores))
-		c.NextMove = moves[max_score_index]
-		return scores[max_score_index]
+		maxScoreIndex := indexInSlice(scores, maxFloat64Slice(scores))
+		c.NextMove = moves[maxScoreIndex]
+		return scores[maxScoreIndex]
 	} else {
-		min_score_index := indexInSlice(scores, minFloat64Slice(scores))
-		c.NextMove = moves[min_score_index]
-		return scores[min_score_index]
+		minScoreIndex := indexInSlice(scores, minFloat64Slice(scores))
+		c.NextMove = moves[minScoreIndex]
+		return scores[minScoreIndex]
 	}
 }

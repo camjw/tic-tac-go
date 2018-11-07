@@ -19,7 +19,6 @@ func GetMove(board BoardToPlay, reader io.Reader) int {
 		move, err := strconv.Atoi(getUserInput(board, reader))
 		if (err == nil) && (intInSlice(move, board.GetValidMoves())) {
 			return move
-			break
 		}
 	}
 	return -1
