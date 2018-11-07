@@ -13,7 +13,8 @@ func main() {
 
 	fmt.Println("Welcome to Tic-Tac-Go!")
 
-	board := lib.NewBoard(lib.GetFirstPlayer())
+	firstPlayer, _ := lib.GetFirstPlayer()
+	board := lib.NewBoard(firstPlayer)
 	player := lib.NewPlayer(board)
 	computer := lib.NewComputer(board)
 

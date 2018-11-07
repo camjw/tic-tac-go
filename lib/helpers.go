@@ -7,13 +7,11 @@ import (
   "bufio"
   "io"
   "math/rand"
-  "time"
 )
 
-func GetFirstPlayer() string {
-  rand.Seed(time.Now().Unix())
+func GetFirstPlayer() (string, error) {
   possibleMoves := [2]string{"X", "O"}
-  return possibleMoves[rand.Intn(2)]
+  return possibleMoves[rand.Intn(2)], nil
 }
 
 func GetMove(board BoardToPlay, reader io.Reader) int {
