@@ -2,15 +2,15 @@ package lib
 
 import "fmt"
 
-// Tic-Tac-Toe board struct.
 type Board struct {
+	// Tic-Tac-Toe board struct.
 	Grid       [3][3]string
 	TotalMoves int
 	NextTurn   string
 }
 
-// Returns a new instance of the Board Struct
 func NewBoard(symbol string) *Board {
+	// Returns a new instance of the Board Struct
 	EmptyGrid := [3][3]string{
 		{"-", "-", "-"},
 		{"-", "-", "-"},
@@ -19,13 +19,13 @@ func NewBoard(symbol string) *Board {
 	return &Board{EmptyGrid, 0, symbol}
 }
 
-// Checks whose turn it currently is
 func (b Board) WhoseTurn() string {
+	// Checks whose turn it currently is
 	return b.NextTurn
 }
 
-// Prints the board to StdOut
 func (b Board) Print() {
+	// Prints the board to Stdout
 	for i := range b.Grid {
 		fmt.Println(b.Grid[i])
 	}
@@ -40,16 +40,16 @@ func (b *Board) switchPlayer() {
 	}
 }
 
-// Plays a new move on the grid
 func (b *Board) PlayMove(index int, symbol string) {
+	// Plays a new move on the grid
 	row, column := index/3, index%3
 	b.Grid[row][column] = symbol
 	b.TotalMoves += 1
 	b.switchPlayer()
 }
 
-// Returns the currently valid moves
 func (b *Board) GetValidMoves() []int {
+	// Returns the currently valid moves
 	output := []int{}
 	for i := range b.Grid {
 		for j := range b.Grid[i] {
@@ -64,16 +64,16 @@ func (b *Board) GetValidMoves() []int {
 	return output
 }
 
-// Checks if the game has been won by the passed symbol
 func (b Board) Winner(symbol string) bool {
+	// Checks if the game has been won by the passed symbol
 	if b.VerticalWin(symbol) || b.HorizontalWin(symbol) || b.DiagonalWin(symbol) {
 		return true
 	}
 	return false
 }
 
-// Checks if the game is over (either player won or a draw)
 func (b Board) GameOver() bool {
+	// Checks if the game is over (either player won or a draw)
 	if b.Winner("X") || b.Winner("O") || b.TotalMoves == 9 {
 		return true
 	}
@@ -110,7 +110,7 @@ func (b Board) diagonalWin(symbol string) bool {
 	return false
 }
 
-// Returns a clone of the current board
 func (b Board) Clone() Board {
+	// Returns a clone of the current board
 	return b
 }

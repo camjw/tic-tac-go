@@ -1,20 +1,20 @@
 package lib
 
-// Simple AI for tic-tac-toe. Uses the minimax algorithm to choose moves
 type ComputerPlayer struct {
+	// Simple AI for tic-tac-toe. Uses the minimax algorithm to choose moves
 	Symbol   string
 	Board    BoardToPlay
 	NextMove int
 }
 
-// Returns a new instance of the ComputerPlayer
 func NewComputer(board BoardToPlay) *ComputerPlayer {
+	// Returns a new instance of the ComputerPlayer
 	return &ComputerPlayer{"O", board, -1}
 }
 
 
-// Plays a move for the computer on the computers board
 func (c *ComputerPlayer) ComputerMove() {
+	// Plays a move for the computer on the computers board
 	c.miniMax(c.Board)
 	c.Board.PlayMove(c.NextMove, c.Symbol)
 }
