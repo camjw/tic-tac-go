@@ -26,13 +26,12 @@ func getUserInput(board BoardToPlay, reader io.Reader) string {
 }
 
 func GetMove(board BoardToPlay, reader io.Reader) int {
-	for {
+	for i := 0; i < 5; i ++ {
 		move, err := strconv.Atoi(getUserInput(board, reader))
 		if (err == nil) && (intInSlice(move, board.GetValidMoves())) {
 			return move
 			break
 		}
-    GetMove(board, reader)
 	}
 	return -1
 }

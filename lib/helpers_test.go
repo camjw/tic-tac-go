@@ -1,6 +1,9 @@
 package lib
 
-import "testing"
+import (
+  "testing"
+  "strings"
+)
 
 func TestIntInSliceTrue(t *testing.T) {
   got := intInSlice(6, []int{5,6})
@@ -19,5 +22,17 @@ func TestIntInSliceFalse(t *testing.T) {
 }
 
 func TestGetMove(t *testing.T) {
+  got := GetMove(&mockboard, strings.NewReader("0"))
+  want := 0
+  if got != want {
+    t.Errorf("got %v want %v", got, want)
+  }
+}
 
+func TestGetMoveFailure(t *testing.T) {
+  got := GetMove(&mockboard, strings.NewReader("f"))
+  want := -1
+  if got != want {
+    t.Errorf("got %v want %v", got, want)
+  }
 }
