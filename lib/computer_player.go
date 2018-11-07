@@ -12,7 +12,6 @@ func NewComputer(board BoardToPlay) *ComputerPlayer {
 	return &ComputerPlayer{"O", board, -1}
 }
 
-
 func (c *ComputerPlayer) ComputerMove() {
 	// Plays a move for the computer on the computers board
 	c.miniMax(c.Board)
@@ -52,9 +51,8 @@ func (c *ComputerPlayer) scorePosition(board BoardToPlay, moves []int, scores []
 		maxScoreIndex := indexInSlice(scores, maxFloat64Slice(scores))
 		c.NextMove = moves[maxScoreIndex]
 		return scores[maxScoreIndex]
-	} else {
-		minScoreIndex := indexInSlice(scores, minFloat64Slice(scores))
-		c.NextMove = moves[minScoreIndex]
-		return scores[minScoreIndex]
 	}
+	minScoreIndex := indexInSlice(scores, minFloat64Slice(scores))
+	c.NextMove = moves[minScoreIndex]
+	return scores[minScoreIndex]
 }
